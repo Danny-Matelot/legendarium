@@ -49,12 +49,12 @@ export const SubaseAuth = () => {
           },
           extend: true,
           className: {
-            container: " mx-4 px-4 rounded-xl",
+            container: " mx-4 px-4 rounded-xl text-white",
           },
         }}
         socialLayout="horizontal"
         providers={["google"]}
-        theme="default"
+        theme="dark"
         redirectTo="http://localhost:3000/login/success"
       />
     </div>

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
@@ -13,15 +14,14 @@ export default function Home() {
   };
 
   const GetSessionDetails = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const { data } = await supabase.auth.getUser();
+    console.log(data);
   };
 
   SetNewView();
-  GetSessionDetails();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
+      <button onClick={() => GetSessionDetails()}> Get state</button>
       <Link href="/login">login</Link>
     </main>
   );
