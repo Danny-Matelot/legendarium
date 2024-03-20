@@ -3,6 +3,10 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 import Link from "next/link";
+import { useSupase } from "@/hooks/useSupabase";
+import { useEffect } from "react";
+import Sidebar from "@/components/nav/Sidebar";
+import LoremIpsum from "@/components/LoremIpsum";
 export default function Home() {
   const SetNewView = async () => {
     const { data, error } = await supabase
@@ -13,16 +17,13 @@ export default function Home() {
     if (error) console.log(error);
   };
 
-  const GetSessionDetails = async () => {
-    const { data } = await supabase.auth.getUser();
-    console.log(data);
-  };
-
   SetNewView();
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
-      <button onClick={() => GetSessionDetails()}> Get state</button>
+    <div className=" flex flex-col">
+      <button className=""> Get state</button>
+      <LoremIpsum />
       <Link href="/login">login</Link>
-    </main>
+    </div>
   );
 }
