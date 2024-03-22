@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 import { useRouter } from "next/navigation";
 
 export const SubaseAuth = () => {

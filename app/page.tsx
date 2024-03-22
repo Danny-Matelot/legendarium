@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 import { NextResponse } from "next/server";
 import Link from "next/link";
 import { useSupase } from "@/hooks/useSupabase";

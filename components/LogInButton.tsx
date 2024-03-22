@@ -1,6 +1,6 @@
 "use client";
 import { useSupase } from "@/hooks/useSupabase";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 import Link from "next/link";
 
 import React, { useEffect, useState } from "react";
