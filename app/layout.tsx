@@ -9,8 +9,8 @@ import SessionProvider from "@/utils/providers/SessionProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cénéris Legndarium",
-  description: "Toutes les légendes en un recueil ",
+  title: "Cénéris Legendarium",
+  description: "Toutes les légendes en un recueil",
 };
 
 export default function RootLayout({

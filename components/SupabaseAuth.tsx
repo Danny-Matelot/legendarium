@@ -11,9 +11,6 @@ export const SubaseAuth = () => {
   const router = useRouter();
 
   const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-    console.log("auth state changed: ");
-    console.log(event, session);
-
     if (event === "INITIAL_SESSION") {
     } else if (event === "SIGNED_IN") {
       //router.push("/login/success");
