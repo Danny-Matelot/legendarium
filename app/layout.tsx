@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Sidebar from "@/components/nav/Sidebar";
 import { useSupase } from "@/hooks/useSupabase";
+import SessionProvider from "@/utils/providers/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="bg-arches flex  max-w-screen ">
+        <SessionProvider />
         <Sidebar />
         <main className="w-full flex  flex-col">{children}</main>
       </body>

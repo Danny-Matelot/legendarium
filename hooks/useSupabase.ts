@@ -9,19 +9,12 @@ export const useSupase = () => {
     } = await supabase.auth.getSession();
     const { access_token, refresh_token }: any = session;
     await setSession(access_token, refresh_token);
-    console.log(session);
     return session;
   };
 
   const getUser = async () => {
     const { data, error } = await supabase.auth.getUser();
-    console.log(data);
     return data;
-  };
-
-  // TODO: remove testgetSession
-  const testgetSession = async () => {
-    return await supabase.auth.getSession();
   };
 
   const setSession = async (access_token: string, refresh_token: string) => {
@@ -42,7 +35,6 @@ export const useSupase = () => {
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    console.log("Signout");
   };
 
   return {
@@ -50,7 +42,6 @@ export const useSupase = () => {
     refreshSession,
     getSession,
     getUser,
-    testgetSession,
     signOut,
   };
 };

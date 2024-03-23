@@ -16,7 +16,7 @@ export const SubaseAuth = () => {
 
     if (event === "INITIAL_SESSION") {
     } else if (event === "SIGNED_IN") {
-      router.push("/login/success");
+      //router.push("/login/success");
     } else if (event === "SIGNED_OUT") {
       // handle sign out event
       router.push("/signout");

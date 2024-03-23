@@ -1,36 +1,47 @@
 "use client";
 import { useSupase } from "@/hooks/useSupabase";
+import { useUserStore } from "@/utils/stores/userStore";
 import { supabase } from "@/utils/supabase/supabase";
 import Link from "next/link";
 
 import React, { useEffect, useState } from "react";
+import ProfileCard from "./nav/ProfileCard";
 
 function LogInButton() {
-  const { signOut, getUser, getSession } = useSupase();
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+  const userLogOut = () => {
+    signOut();
+    setUser(undefined);
+  };
+  const { signOut } = useSupase();
 
-  const [data, setData] = useState<any>();
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const test = await getSession();
-        setData(test);
-        console.log("test");
-      } catch (error) {
-        console.log(error);
+    const subscription = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") {
+        console.log("SIGNED_IN", session);
+        setUser(session?.user || undefined);
       }
+      if (event === "SIGNED_OUT") {
+        setUser(undefined);
+        console.log("SIGNED_OUT", session);
+      }
+    });
+
+    return () => {
+      subscription.data?.subscription.unsubscribe();
     };
-    fetchSession();
-  }, []);
+  }, [setUser]);
 
   return (
     <div className=" absolute bottom-0 h-fit p-2">
-      <button className="" onClick={() => console.log(data?.user)}>
-        {data?.user.aud == "authenticated" ? (
-          <button onClick={() => signOut()}> Sign Out</button>
-        ) : (
-          <Link href="/login">login</Link>
-        )}
-      </button>
+      {user?.id ? (
+        <>
+          <ProfileCard /> <button onClick={() => userLogOut()}> Log out</button>
+        </>
+      ) : (
+        <Link href="/login">login</Link>
+      )}
     </div>
   );
 }
