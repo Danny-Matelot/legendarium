@@ -1,14 +1,14 @@
 "use client";
 
-import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Link from "next/link";
-import { supabase } from "@/utils/supabase/supabase";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 export const SubaseAuth = () => {
   const router = useRouter();
+  const supabase = createClient();
 
   const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
     if (event === "INITIAL_SESSION") {

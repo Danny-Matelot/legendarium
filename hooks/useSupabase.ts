@@ -1,7 +1,8 @@
-import { supabase } from "@/utils/supabase/supabase";
+import { createClient } from "@/utils/supabase/client";
 import { access } from "fs";
 
 export const useSupase = () => {
+  const supabase = createClient();
   const getSession = async () => {
     const {
       data: { session },

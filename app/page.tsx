@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { supabase } from "@/utils/supabase/supabase";
+import { createClient } from "@/utils/supabase/client";
 import { NextResponse } from "next/server";
 import Link from "next/link";
 import { useSupase } from "@/hooks/useSupabase";
@@ -9,6 +9,7 @@ import Sidebar from "@/components/nav/Sidebar";
 import LoremIpsum from "@/components/LoremIpsum";
 export default function Home() {
   const SetNewView = async () => {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("views")
       .insert({ name: "test insert" });

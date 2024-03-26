@@ -8,6 +8,8 @@ import { SubaseAuth } from "@/components/SupabaseAuth";
 export default function LoginPage() {
   const supabaseClient = createClient();
   const pathname = usePathname();
+  const router = useRouter();
+
   const loginWithGoogle = () => {
     supabaseClient.auth.signInWithOAuth({
       provider: "google",
@@ -17,18 +19,16 @@ export default function LoginPage() {
     });
   };
 
-  //TODO: solve why state isn't updated when login with password, and remove the following code
-  const router = useRouter();
-  const loginWithPassword = async (event: FormEvent<HTMLFormElement>) => {
+  const loginWithPassword = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    await supabaseClient.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
       email: target.email.value,
       password: target.password.value,
     });
 
-    router.push("/");
+    router.replace("/");
   };
 
   return (
@@ -40,15 +40,10 @@ export default function LoginPage() {
         <label htmlFor="password">Password:</label>
         <input id="password" name="password" type="password" required />
 
-        <button formAction={login}>Log in</button>
+        <button type="submit">Log in</button>
         <button formAction={signup}>Sign up</button>
         <button type="submit">Signin with clientside</button>
       </form>
-
-      <br />
-      <br />
-
-      {/* <SubaseAuth /> */}
     </div>
   );
 }

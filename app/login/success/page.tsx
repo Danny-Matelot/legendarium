@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { supabase } from "@/utils/supabase/supabase";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 function Success() {
   const router = useRouter();
   const [user, setUser] = useState({});
+  const supabase = createClient();
+
   useEffect(() => {
     async function getUserData() {
       await supabase.auth.getUser().then((value) => {

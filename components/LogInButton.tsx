@@ -1,38 +1,21 @@
 "use client";
 import { useSupase } from "@/hooks/useSupabase";
 import { useUserStore } from "@/utils/stores/userStore";
-import { supabase } from "@/utils/supabase/supabase";
+import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 
 import React, { useEffect, useState } from "react";
 import ProfileCard from "./nav/ProfileCard";
 
 function LogInButton() {
-  const user = useUserStore((state) => state.user);
-  const setUser = useUserStore((state) => state.setUser);
+  const { user, setUser } = useUserStore();
   const { signOut } = useSupase();
-  const userLogOut = () => {
-    signOut();
+
+  const userLogOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
     setUser(undefined);
   };
-
-  useEffect(() => {
-    const subscription = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        console.log("SIGNED_IN", session);
-        setUser(session?.user || undefined);
-      }
-      if (event === "SIGNED_OUT") {
-        console.log("SIGNED_OUT", session);
-        setUser(undefined);
-        signOut();
-      }
-    });
-
-    return () => {
-      subscription.data?.subscription.unsubscribe();
-    };
-  }, [setUser]);
 
   return (
     <div className=" absolute bottom-0 h-fit p-2">

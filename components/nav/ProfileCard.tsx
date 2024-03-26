@@ -7,7 +7,7 @@ function ProfileCard() {
 
   return (
     <Image
-      src={user?.user_metadata.avatar_url}
+      src={user?.user_metadata.avatar_url || "/Unknown.svg"}
       alt={user?.aud as string}
       width={50}
       height={50}
